@@ -4,8 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.Color;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
@@ -42,15 +40,13 @@ public class ClientEvents {
 
     public void keyEvent(InputEvent.KeyInputEvent event) {
         if (reloadSoundsKey.isPressed()) {
-            if(!wasPressed) {
+            if (!wasPressed) {
                 LOGGER.info("Reloading sound engine...");
                 Minecraft.getInstance().getSoundHandler().sndManager.reload();
                 ClientPlayerEntity player = Minecraft.getInstance().player;
                 if (player != null) {
                     player.sendMessage(new StringTextComponent("[SoundReloader] Sound engine reloaded")
-                                               .func_230530_a_(Style.field_240709_b_.func_240718_a_(
-                                                       Color.func_240744_a_(TextFormatting.YELLOW))),
-                                       Util.field_240973_b_);
+                                               .setStyle(new Style().setColor(TextFormatting.YELLOW)));
                 }
             }
 
