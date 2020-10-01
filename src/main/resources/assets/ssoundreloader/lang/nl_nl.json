@@ -1,0 +1,6 @@
+{
+  "ssoundreloader.key.reload_sounds": "Geluidsengine opnieuw laden",
+  "key.categories.ssoundreloader": "Geluid herlader",
+  "ssoundreloader.prefix": "[SoundReloader]",
+  "ssoundreloader.message.reload_done": "Geluidsengine opnieuw geladen"
+}
