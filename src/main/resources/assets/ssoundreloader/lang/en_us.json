@@ -1,5 +1,6 @@
 {
   "ssoundreloader.key.reload_sounds": "Reload Sound Engine",
   "key.categories.ssoundreloader": "SoundReloader",
-  "ssoundreloader.message.reload_done": "[SoundReloader] Sound engine reloaded"
+  "ssoundreloader.prefix": "[SoundReloader]",
+  "ssoundreloader.message.reload_done": "Sound engine reloaded"
 }
