@@ -5,7 +5,10 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.InputEvent;
@@ -21,12 +24,14 @@ import org.lwjgl.glfw.GLFW;
 
 
 public class ClientEvents {
-    public static final KeyBinding reloadSoundsKey = new KeyBinding(SoundReloader.MOD_ID + ".key.reload_sounds",
-                                                                    KeyConflictContext.UNIVERSAL,
-                                                                    KeyModifier.ALT,
-                                                                    InputMappings.Type.KEYSYM,
-                                                                    GLFW.GLFW_KEY_G,
-                                                                    "key.categories." + SoundReloader.MOD_ID);
+
+    public static final KeyBinding reloadSoundsKey = new KeyBinding(
+            SoundReloader.MOD_ID + ".key.reload_sounds",
+            KeyConflictContext.UNIVERSAL,
+            KeyModifier.ALT,
+            InputMappings.Type.KEYSYM,
+            GLFW.GLFW_KEY_G,
+            "key.categories." + SoundReloader.MOD_ID);
     private static final Logger LOGGER = LogManager.getLogger();
     boolean wasPressed = false;
 
@@ -41,16 +46,22 @@ public class ClientEvents {
 
     public void keyEvent(InputEvent.KeyInputEvent event) {
         if (reloadSoundsKey.isPressed()) {
-            if(!wasPressed) {
+            if (!wasPressed) {
                 LOGGER.info("Reloading sound engine...");
                 Minecraft.getInstance().getSoundHandler().sndManager.reload();
                 ClientPlayerEntity player = Minecraft.getInstance().player;
                 if (player != null) {
 
-                    player.sendStatusMessage(new TranslationTextComponent("ssoundreloader.message.reload_done")
-                                               .setStyle(Style.EMPTY.setColor(
-                                                       Color.func_240744_a_(TextFormatting.YELLOW))),
-                                       false);
+                    ITextComponent message = new TranslationTextComponent(
+                            "ssoundreloader.message.reload_done");
+                    ITextComponent header = new TranslationTextComponent("ssoundreloader.prefix")
+                            .mergeStyle(TextFormatting.YELLOW, TextFormatting.BOLD);
+
+                    player.sendStatusMessage(
+                            new StringTextComponent("")
+                                    .append(header)
+                                    .appendString(" ")
+                                    .append(message), false);
                 }
             }
 
